@@ -1,6 +1,6 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "api",
+	"name": "auth",
 	"main": "src/index.ts",
 	"compatibility_date": "2026-04-29",
 	"compatibility_flags": [
@@ -12,14 +12,14 @@
     "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "shop-bot",
+      "database_name": "personal-bot",
       "database_id": "3f72b578-a57d-4262-88f1-58e5bc1b4ba4"
     }
   ],
    "kv_namespaces": [
     {
       "binding": "KV",
-      "id": "<BINDING_ID>"
+      "id": "xxxxxxxxxxxxxxx"
     }
   ]
 }
