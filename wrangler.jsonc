@@ -13,12 +13,12 @@
     {
       "binding": "DB",
       "database_name": "atlas",
-      "database_id": "01c4be24-2c0f-449b-9ccc-24481de586f3"
+      "database_id": "1338c005-d273-49ad-acc9-23741bebc232"
     }
   ],
    "kv_namespaces": [
     {
-      "binding": "KV",
+      "binding": "RATE_CACHE",
       "id": "d467334de0aa4bd58910c266f8ac0233"
     }
   ]
