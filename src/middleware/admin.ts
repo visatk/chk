@@ -3,10 +3,6 @@ import { eq } from "drizzle-orm";
 import { BotContext } from "../types";
 import { users } from "../db/schema";
 
-/**
- * Enterprise-grade authorization middleware.
- * Verifies user existence in D1 and attaches role to context.
- */
 export async function requireAdmin(ctx: BotContext, next: NextFunction) {
   if (!ctx.from) return;
 
