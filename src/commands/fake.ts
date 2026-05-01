@@ -44,9 +44,9 @@ export async function handleFake(args: string[], chatId: number, env: Env): Prom
     const data = await response.json<{ results: any[] }>();
     const user = data.results[0];
 
-    // Extract variables
+    // Extract and format variables
     const name = `${user.name.first} ${user.name.last}`;
-    const gender = user.gender; 
+    const gender = user.gender.charAt(0).toUpperCase() + user.gender.slice(1);
     const street = `${user.location.street.number} ${user.location.street.name}`;
     const city = user.location.city;
     const state = user.location.state;
@@ -54,21 +54,26 @@ export async function handleFake(args: string[], chatId: number, env: Env): Prom
     const country = user.location.country;
     const phone = user.phone;
 
-    // High-fidelity UI format
-    const output = `📍 <b>Address For ${flag} ${country}</b>
+    // Premium UI formatting with "Click to Copy" <code> blocks
+    const output = `📍 <b>Identity For ${flag} ${country}</b>
 ———————————————
-• <b>Name</b> : ${name}
-• <b>Gender</b> : ${gender.charAt(0).toUpperCase() + gender.slice(1)}
-• <b>Street Address</b> : ${street}
-• <b>City/Town/Village</b> : ${city}
-• <b>State/Region</b> : ${state}
-• <b>Postal Code</b> : ${zip}
-• <b>Country</b> : ${country}
-• <b>Phone</b> : <code>${phone}</code>`;
+👤 <b>Name:</b> <code>${name}</code>
+⚧ <b>Gender:</b> ${gender}
+📞 <b>Phone:</b> <code>${phone}</code>
 
-    // Add a quick regenerate button tied to the specific country code
+🏠 <b>Address</b> <i>(Tap below to copy full)</i>:
+<code>${street}
+${city}, ${state} ${zip}
+${country}</code>
+
+———————————————
+<i>💡 Tip: Tap any mono-spaced text to copy instantly.</i>`;
+
+    // Interactive Regenerate button
     const markup = {
-      inline_keyboard: [[{ text: `🔄 Regenerate ${inputCode.toUpperCase()}`, callback_data: `fake_${inputCode}` }]]
+      inline_keyboard: [
+        [{ text: `🔄 Regenerate ${inputCode.toUpperCase()}`, callback_data: `fake_${inputCode}` }]
+      ]
     };
 
     await sendMessage(env, chatId, output, markup);
