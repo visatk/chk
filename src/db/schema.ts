@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
+import { sqliteTable, text, integer, real } from 'drizzle-orm/sqlite-core';
 import { sql } from 'drizzle-orm';
 
 export const users = sqliteTable('users', {
@@ -9,8 +9,12 @@ export const users = sqliteTable('users', {
   joinedAt: integer('joined_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
 });
 
-export const botSettings = sqliteTable('bot_settings', {
-  key: text('key').primaryKey(),
-  value: text('value').notNull(),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
+// Track purchase intent for analytics
+export const orderIntents = sqliteTable('order_intents', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  telegramId: integer('telegram_id').notNull(),
+  productId: text('product_id').notNull(),
+  productName: text('product_name').notNull(),
+  price: real('price').notNull(),
+  createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
 });
